@@ -34,10 +34,8 @@ public class TreeServiceImpl implements TreeService {
 	@Override
 	@CachePut(cacheNames = "trees",key = "#tree.id")
 	public Tree updateTree(Tree tree) {
-	if(!repo.findById(tree.getId()).isPresent()) {
-		throw new NotFoundException(messageSource.getMessage("tree.not-found", null, null));
-	}
-		
+	repo.findById(tree.getId()).orElseThrow(() -> new NotFoundException("gamer"));
+		System.out.println("hello");
 		return repo.save(tree);
 
 	}
