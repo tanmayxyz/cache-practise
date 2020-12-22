@@ -39,15 +39,17 @@ public class TreeServiceImpl implements TreeService {
 		return repo.save(tree);
 
 	}
-
 	@Override
 	@CacheEvict(cacheNames = "trees",key = "#id")
 	public void deleteTree(Integer id) {
 		if(!repo.findById(id).isPresent()) {
+			System.out.println("hello");
 			throw new NotFoundException(
 					messageSource.getMessage("tree.not-found", null, null));
+			
 		}
-		
+		System.out.println("hello");
+		repo.findById(id).orElseThrow(() -> new NotFoundException("not found"));
 		 repo.deleteById(id);
 
 	}
